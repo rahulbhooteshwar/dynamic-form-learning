@@ -1,8 +1,21 @@
-<div class="container">
-  <form [formGroup]="form" (ngSubmit)="submit(model)">
-    <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
-      <button type="submit" class="btn btn-default" [disabled]="!form.valid">Submit</button>
-    </formly-form>
-  </form>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4">
+      <json-editor [(ngModel)]="json" jsonModal #staticModal="json-modal" [config]="{sortObjectKeys: true, mode:'code', modes:['tree', 'code']}"
+        (change)="onChange($event)">
+      </json-editor>
+    </div>
+    <div class="col-sm-4 custom-form-container">
+      <form class="custom-form" id="custom-form" [formGroup]="form" (ngSubmit)="submit()">
+        <formly-form [fields]="fields" [options]="options" [form]="form">
+        </formly-form>
+      </form>
+      <button form="custom-form" type="submit" class="btn btn-block btn-primary btn-lg float-right" [disabled]="!form.valid">Submit</button>
+    </div>
+    <div class="col-sm-4 dimmed">
+      <json-editor [(ngModel)]="output" jsonModal #staticModal="json-modal" [config]="{mode:'code'}"
+        (change)="onChange($event)">
+      </json-editor>
+    </div>
+  </div>
 </div>
-

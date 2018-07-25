@@ -1,4 +1,34 @@
+:host ::ng-deep {
+  @import 'node_modules/bootstrap/scss/bootstrap';
+  .jsoneditor {
+    height: 98vh !important;
+  }
+  form.custom-form {
+    height: 90vh;
+    overflow-y: auto;
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+  .custom-form-container {
+    border: solid 1px blue;
+    padding: 5px;
+  }
+  .dimmed {
+    .ace_editor {
+      position: relative;
+    }
 
-:host ::ng-deep  {
-  @import "node_modules/bootstrap/scss/bootstrap";
+    .ace_editor:after {
+      content: ' ';
+      z-index: 10;
+      display: block;
+      position: absolute;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      cursor: not-allowed;
+      background: rgba(210, 251, 144, 0.5);
+    }
+  }
 }

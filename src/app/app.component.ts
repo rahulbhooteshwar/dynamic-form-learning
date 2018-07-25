@@ -2,147 +2,169 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
+// tslint:disable:quotemark
+// tslint:disable:whitespace
+const sample = [
+  {
+    "key":"firstName",
+    "type": "input",
+    "templateOptions":{
+      "label":"First Name"
+    }
+  },
+  {
+    "key":"lastName",
+    "type":"input",
+    "templateOptions":{
+      "label":"Last Name"
+    }
+  },
+  {
+    "key":"marvel1",
+    "type":"select",
+    "defaultValue":"iron_man",
+    "templateOptions":{
+      "label":"Normal Select",
+      "options":[
+        {
+          "label":"Iron Man",
+          "value":"iron_man"
+        },
+        {
+          "label":"Captain America",
+          "value":"captain_america"
+        },
+        {
+          "label":"Black Widow",
+          "value":"black_widow"
+        },
+        {
+          "label":"Hulk",
+          "value":"hulk"
+        },
+        {
+          "label":"Captain Marvel",
+          "value":"captain_marvel"
+        }
+      ]
+    }
+  },
+  {
+    "key":"address",
+    "wrappers":[
+      "panel"
+    ],
+    "templateOptions":{
+      "label":"Address"
+    },
+    "type":"repeat",
+    "fieldArray":{
+      "templateOptions":{
+        "addBtnText":"Add Other Address"
+      },
+      "fieldGroup":[
+        {
+          "key":"town",
+          "type":"input",
+          "templateOptions":{
+            "required":true,
+            "type":"text",
+            "label":"Town"
+          }
+        },
+        {
+          "key":"area",
+          "type":"input",
+          "templateOptions":{
+            "required":true,
+            "type":"text",
+            "label":"Area"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key":"mac",
+    "type":"input",
+    "templateOptions":{
+      "label":"Mac Address"
+    }
+  },
+  {
+    "key":"color",
+    "type":"radio",
+    "templateOptions":{
+      "label":"Color Preference (try this out)",
+      "options":[
+        {
+          "label":"No Preference",
+          "value":null
+        },
+        {
+          "label":"Green",
+          "value":"green"
+        },
+        {
+          "label":"Blue",
+          "value":"blue"
+        }
+      ]
+    }
+  },
+  {
+    "key":"buildType",
+    "type":"multicheckbox",
+    "templateOptions":{
+      "label":"Choose Build Type",
+      "options":[
+        {
+          "value":"Manual",
+          "key":"MANUAL"
+        },
+        {
+          "value":"Auto",
+          "key":"AUTO"
+        },
+        {
+          "value":"Always Ask",
+          "key":"ASK"
+        }
+      ]
+    }
+  },
+  {
+    "key":"reason",
+    "type":"textarea",
+    "templateOptions":{
+      "label":"Why?"
+    },
+    "expressionProperties":{
+      "templateOptions.label":"'Why did you choose ' + model.color + '?'"
+    },
+    "hideExpression":"!model.color"
+  }
+];
+
 @Component({
   selector: 'app-root',
   styleUrls: ['app.component.scss'],
   templateUrl: 'app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   form = new FormGroup({});
   options: FormlyFormOptions = {};
+  json = JSON.parse(JSON.stringify(sample));
+  fields = JSON.parse(JSON.stringify(sample));
+  output = {};
 
-  model = {
-    firstName: 'Joan',
-    lastName: 'of Arc',
-    address: [{}]
-  };
-  fields: FormlyFieldConfig[] = [
-    {
-      key: 'firstName',
-      type: 'input',
-      templateOptions: {
-        label: 'First Name'
-      }
-    },
-    {
-      key: 'lastName',
-      type: 'input',
-      templateOptions: {
-        label: 'Last Name'
-      }
-    },
-    {
-      key: 'marvel1',
-      type: 'select',
-      defaultValue: 'iron_man',
-      templateOptions: {
-        label: 'Normal Select',
-        options: [
-          { label: 'Iron Man', value: 'iron_man' },
-          { label: 'Captain America', value: 'captain_america' },
-          { label: 'Black Widow', value: 'black_widow' },
-          { label: 'Hulk', value: 'hulk' },
-          { label: 'Captain Marvel', value: 'captain_marvel' }
-        ]
-      }
-    },
-    {
-      key: 'address',
-      wrappers: ['panel'],
-      templateOptions: { label: 'Address' },
-      type: 'repeat',
-      fieldArray: {
-        fieldGroupClassName: 'row',
-        fieldGroup: [
-          {
-            className: 'col-sm-4',
-            key: 'town',
-            type: 'input',
-            templateOptions: {
-              required: true,
-              type: 'text',
-              label: 'Town'
-            }
-          },
-          {
-            key: 'area',
-            type: 'input',
-            templateOptions: {
-              required: true,
-              type: 'text',
-              label: 'Area'
-            }
-          }
-        ]
-      }
-    },
-    {
-      key: 'mac',
-      type: 'input',
-      templateOptions: {
-        label: 'Mac Address'
-        // pattern: '([0-9A-F]{2}[:-]){5}([0-9A-F]{2})'
-      }
-    },
-    {
-      key: 'color',
-      type: 'radio',
-      templateOptions: {
-        label: 'Color Preference (try this out)',
-        options: [
-          {
-            label: 'No Preference',
-            value: null
-          },
-          {
-            label: 'Green',
-            value: 'green'
-          },
-          {
-            label: 'Blue',
-            value: 'blue'
-          }
-        ]
-      }
-    },
-    {
-      key: 'buildType',
-      type: 'multicheckbox',
-      templateOptions: {
-        label: 'Choose Build Type',
-        'options': [
-          {
-             'value': 'Manual',
-             'key': 'MANUAL'
-          },
-          {
-             'value': 'Auto',
-             'key': 'AUTO'
-          },
-          {
-             'value': 'Always Ask',
-             'key': 'ASK'
-          }
-       ]
-      }
-    },
-    {
-      key: 'reason',
-      type: 'textarea',
-      templateOptions: {
-        label: 'Why?'
-      },
-      expressionProperties: {
-        'templateOptions.label': '\'Why did you choose \' + model.color + \'?\''
-      },
-      hideExpression: '!model.color'
-    }
-  ];
+  constructor() { }
 
-  constructor() {}
-
-  ngOnInit() {}
-  submit(model) {
-    console.log(model);
+  onChange(value) {
+    this.form = new FormGroup({});
+    this.fields = JSON.parse(JSON.stringify(value));
+  }
+  submit() {
+    this.output = JSON.parse(JSON.stringify(this.form.value));
   }
 }
