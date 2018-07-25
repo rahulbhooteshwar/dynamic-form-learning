@@ -9,9 +9,15 @@
     padding: 15px;
     margin-bottom: 10px;
   }
-  .custom-form-container {
+  .custom-form-container, .custom-output-container {
     border: solid 1px blue;
     padding: 5px;
+  }
+  .custom-output-container {
+    textarea{
+      width:100%;
+      height: 90%
+    }
   }
   .dimmed {
     .ace_editor {

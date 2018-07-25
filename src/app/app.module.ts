@@ -11,6 +11,7 @@ import { PanelWrapperComponent } from './panel.wrapper.component';
 import { RepeatTypeComponent } from './repeat-section.type';
 
 import { JSONEditorModule } from 'ngx-jsoneditor';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { JSONEditorModule } from 'ngx-jsoneditor';
         ]
       }
     ),
-    FormlyBootstrapModule
+    FormlyBootstrapModule,
+    TabsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

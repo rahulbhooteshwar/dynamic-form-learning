@@ -7,15 +7,27 @@
     </div>
     <div class="col-sm-4 custom-form-container">
       <form class="custom-form" id="custom-form" [formGroup]="form" (ngSubmit)="submit()">
-        <formly-form [fields]="fields" [options]="options" [form]="form">
-        </formly-form>
+        <tabset *ngIf="fields.length > 1 else noTab">
+          <tab heading="{{tab.label}}" *ngFor="let tab of fields">
+            <formly-form [fields]="tab.fields" [form]="form">
+            </formly-form>
+          </tab>
+        </tabset>
+        <ng-template #noTab>
+          <formly-form [fields]="fields[0].fields" [form]="form">
+          </formly-form>
+        </ng-template>
       </form>
       <button form="custom-form" type="submit" class="btn btn-block btn-primary btn-lg float-right" [disabled]="!form.valid">Submit</button>
     </div>
-    <div class="col-sm-4 dimmed">
-      <json-editor [(ngModel)]="output" jsonModal #staticModal="json-modal" [config]="{mode:'code'}"
+    <div class="col-sm-4 custom-output-container">
+      <!-- <json-editor [ngModel]="output" jsonModal #staticModal="json-modal" [config]="{mode:'code'}"
         (change)="onChange($event)">
-      </json-editor>
+      </json-editor> -->
+      <div class="alert alert-primary" role="alert">
+        JSON Output
+      </div>
+      <textarea [ngModel]="output" name="output" id="output" rows="10"></textarea>
     </div>
   </div>
 </div>
