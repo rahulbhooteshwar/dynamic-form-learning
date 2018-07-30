@@ -3,6 +3,11 @@ import { FieldArrayType, FormlyFormBuilder } from '@ngx-formly/core';
 
 @Component({
   selector: 'formly-repeat-section',
+  styles: [`
+    .disabled {
+      cursor: not-allowed;
+    }
+  `],
   template: `
     <div class="repeat-item mb-2" *ngFor="let field of field.fieldGroup; let i = index;">
       <formly-group
@@ -19,7 +24,8 @@ import { FieldArrayType, FormlyFormBuilder } from '@ngx-formly/core';
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <button class="btn btn-success" type="button" (click)="add()">
+        <button class="btn btn-success" type="button" (click)="add()"
+        [disabled]="disableAddButton()" [ngClass]="{disabled: disableAddButton()}">
           <i class="fas fa-plus"></i>
           <ng-container *ngIf="field.fieldArray['templateOptions'] && field.fieldArray['templateOptions']['addBtnText']">
             {{ field.fieldArray['templateOptions']['addBtnText'] }}
@@ -32,5 +38,17 @@ import { FieldArrayType, FormlyFormBuilder } from '@ngx-formly/core';
 export class RepeatTypeComponent extends FieldArrayType {
   constructor(builder: FormlyFormBuilder) {
     super(builder);
+  }
+
+  disableAddButton() {
+    if (
+      this.field.fieldArray['templateOptions'] &&
+      this.field.fieldArray['templateOptions']['max'] &&
+      this.field.fieldGroup['length'] >= this.field.fieldArray['templateOptions']['max']
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

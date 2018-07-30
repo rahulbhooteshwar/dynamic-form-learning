@@ -126,7 +126,8 @@ const sample = [
         "type":"repeat",
         "fieldArray":{
           "templateOptions":{
-            "addBtnText":"Add Other Address"
+            "addBtnText": "Add Other Address",
+            "max": 5
           },
           "fieldGroup":[
             {
